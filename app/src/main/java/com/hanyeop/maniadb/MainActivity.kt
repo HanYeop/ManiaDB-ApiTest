@@ -28,13 +28,22 @@ class MainActivity : AppCompatActivity() {
     private fun initClickListener(){
         binding.apply {
             btn.setOnClickListener {
-                mainViewModel.getPost()
+//                mainViewModel.getPost()
+                mainViewModel.getSong()
             }
         }
     }
 
     private fun initObserver(){
-        mainViewModel.myResponse.observe(this@MainActivity){
+//        mainViewModel.myResponse.observe(this@MainActivity){
+//            if(it.isSuccessful){
+//                Log.d(TAG, "initClickListener: ${it.body()}")
+//            }
+//            else{
+//                Log.d(TAG, "initClickListener: ${it.code()}")
+//            }
+//        }
+        mainViewModel.mySong.observe(this@MainActivity){
             if(it.isSuccessful){
                 Log.d(TAG, "initClickListener: ${it.body()}")
             }
