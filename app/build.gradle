@@ -50,8 +50,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     // Converter ( JSON 타입 결과를 객체로 매핑 )
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    // okhttp3
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.5.0'
+    //Retrofit XMLConverter
+    implementation ('com.squareup.retrofit2:converter-simplexml:2.2.0')
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
@@ -59,10 +59,4 @@ dependencies {
     // ViewModel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
     implementation "androidx.activity:activity-ktx:1.2.0"
-
-    // XML Parser
-    implementation 'com.tickaroo.tikxml:annotation:0.8.13'
-    implementation 'com.tickaroo.tikxml:core:0.8.13'
-    implementation 'com.tickaroo.tikxml:retrofit-converter:0.8.13'
-    kapt 'com.tickaroo.tikxml:processor:0.8.13'
 }

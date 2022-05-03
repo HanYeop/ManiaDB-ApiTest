@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hanyeop.maniadb.model.ManiaDBClientResponse
-import com.hanyeop.maniadb.model.Post
 import com.hanyeop.maniadb.repository.Repository
 import com.hanyeop.maniadb.util.TAG
 import kotlinx.coroutines.launch
@@ -15,53 +14,18 @@ class MainViewModel() : ViewModel() {
 
     private val repository = Repository()
 
-    val myResponse : MutableLiveData<Response<Post>> = MutableLiveData()
-    val myResponse2 : MutableLiveData<Response<Post>> = MutableLiveData()
-    val myCustomPosts : MutableLiveData<Response<List<Post>>> = MutableLiveData()
-    val myCustomPosts2 : MutableLiveData<Response<List<Post>>> = MutableLiveData()
-    val myCustomPosts3 : MutableLiveData<Response<List<Post>>> = MutableLiveData()
-
-//    fun getPost() {
-//        viewModelScope.launch {
-//            val response = repository.getPost()
-//            myResponse.value = response
-//        }
-//    }
-//
-//    fun getPost2(number : Int){
-//        viewModelScope.launch {
-//            val response = repository.getPost2(number)
-//            myResponse2.value = response
-//        }
-//    }
-//
-//    fun getCustomPosts(userId : Int){
-//        viewModelScope.launch {
-//            val response = repository.getCustomPosts(userId)
-//            myCustomPosts.value = response
-//        }
-//    }
-//
-//    fun getCustomPosts2(userId : Int, sort : String, order : String){
-//        viewModelScope.launch {
-//            val response = repository.getCustomPosts2(userId,sort,order)
-//            myCustomPosts2.value = response
-//        }
-//    }
-//
-//    fun getCustomPosts3(userId : Int, option : Map<String, String>){
-//        viewModelScope.launch {
-//            val response = repository.getCustomPosts3(userId,option)
-//            myCustomPosts3.value = response
-//        }
-//    }
-
     val mySong : MutableLiveData<Response<ManiaDBClientResponse>> = MutableLiveData()
 
     fun getSong(){
         viewModelScope.launch {
             val response = repository.getSong()
-            Log.d(TAG, "getSong: $response")
+            if(response.isSuccessful){
+                Log.d(TAG, "getSong: ${response.body()}")
+                Log.d(TAG, "getSong: ${response.body()!!.channel!!.itemList.toString()}")
+            }
+            else{
+                Log.d(TAG, "getSong: ${response.code()}")
+            }
             mySong.value = response
         }
     }

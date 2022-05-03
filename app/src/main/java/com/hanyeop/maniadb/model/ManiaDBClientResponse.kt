@@ -1,37 +1,33 @@
 package com.hanyeop.maniadb.model
 
-import com.tickaroo.tikxml.annotation.Element
-import com.tickaroo.tikxml.annotation.PropertyElement
-import com.tickaroo.tikxml.annotation.Xml
+import org.simpleframework.xml.Element
+import org.simpleframework.xml.ElementList
+import org.simpleframework.xml.Root
 
-@Xml(name = "rss")
+@Root(name = "rss", strict = false)
 data class ManiaDBClientResponse(
-
-    @Element(name = "channel")
-    val maniaDbData: ManiaDbData?
+    @field:Element(name = "channel")
+    var channel: Channel? = null
 )
 
-@Xml(name = "channel")
-data class ManiaDbData(
-
-    @PropertyElement(name = "title")
-    val title: String
-//    @Element(name = "item")
-//    val tracks: List<ManiaDbTrackData>
+@Root(name = "channel", strict = false)
+data class Channel @JvmOverloads constructor(
+    @field:ElementList(inline = true)
+    var itemList: List<Item>? = null
 )
-//
-//@Xml(name = "item")
-//data class ManiaDbTrackData(
-//
-//    @PropertyElement(name = "title")
-//    val title: String,
-//    @Element(name = "maniadb:album")
-//    val album: ManiaDbAlbum
-//)
-//
-//@Xml(name = "maniadb:album")
-//data class ManiaDbAlbum(
-//
-//    @PropertyElement(name = "image")
-//    val imageUrl: String
-//)
+
+@Root(name = "item", strict = false)
+class Item @JvmOverloads constructor(
+    @field:Element(name = "title")
+    var title: String = "",
+
+    @field:Element(name = "description", required = false)
+    var description: String = ""
+
+
+) {
+    override fun toString(): String {
+        return "$title"
+    }
+}
+
