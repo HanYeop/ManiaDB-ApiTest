@@ -21,11 +21,15 @@ class MainActivity : AppCompatActivity() {
 
         binding.apply {
             lifecycleOwner = this@MainActivity
-            vm = mainViewModel
+            activity = this@MainActivity
             recyclerView.adapter = mainAdapter
         }
 
         initObserver()
+    }
+
+    fun getSong(){
+        mainViewModel.getSong(binding.editKeyword.text.toString())
     }
 
     private fun initObserver(){

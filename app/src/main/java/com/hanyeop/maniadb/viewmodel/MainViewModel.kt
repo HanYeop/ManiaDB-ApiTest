@@ -11,19 +11,18 @@ import kotlinx.coroutines.launch
 
 class MainViewModel() : ViewModel() {
 
-    private val repository = Repository()
+    private val repository = Repository.get()
 
     val mySong : MutableLiveData<List<Item>> = MutableLiveData()
 
-    fun getSong(){
+    fun getSong(keyword: String){
         viewModelScope.launch {
-            repository.getSong().let { response ->
+            repository.getSong(keyword).let { response ->
                 if(response.isSuccessful){
                     val list = response.body()!!.channel!!.itemList
                     if (list != null) {
                         for(i in list){
                             i.title = i.title.replace("&nbsp;"," ")
-                            Log.d(TAG, "getSong: ${i.title}")
                         }
                     }
                     mySong.value = list
