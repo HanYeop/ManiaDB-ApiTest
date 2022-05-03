@@ -25,12 +25,13 @@ class MainViewModel() : ViewModel() {
     }
 
     fun getSong(keyword: String){
-        _state.value = false
+        _state.value = false // 로딩
         viewModelScope.launch {
             repository.getSong(keyword).let { response ->
                 if(response.isSuccessful){
                     val list = response.body()!!.channel!!.itemList
                     if (list != null) {
+                        // 결과값 &nbsp; 제거
                         for(i in list){
                             i.title = i.title.replace("&nbsp;"," ")
                         }
@@ -40,7 +41,7 @@ class MainViewModel() : ViewModel() {
                 else{
                     Log.d(TAG, "getSong: ${response.code()}")
                 }
-                _state.value = true
+                _state.value = true // 로딩 끝
             }
         }
     }

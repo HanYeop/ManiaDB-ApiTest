@@ -28,7 +28,7 @@ class MainAdapter: ListAdapter<Item, MainAdapter.MyViewHolder> (diffUtil) {
         holder.bind(getItem(position))
     }
 
-    // diffUtil 추가
+    // diffUtil 추가 (고유 값인 id로 비교 하는게 좋음. TEST 위해 title로 함)
     companion object{
         val diffUtil = object : DiffUtil.ItemCallback<Item>(){
             override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {

@@ -11,6 +11,7 @@ class Repository private constructor(context: Context){
         return RetrofitInstance.api.getSong(keyword)
     }
 
+    // 싱글톤
     companion object {
         private var INSTANCE: Repository? = null
 
