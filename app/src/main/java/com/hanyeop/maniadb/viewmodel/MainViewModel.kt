@@ -17,14 +17,20 @@ class MainViewModel() : ViewModel() {
 
     fun getSong(){
         viewModelScope.launch {
-            val response = repository.getSong()
-            if(response.isSuccessful){
-                Log.d(TAG, "getSong: ${response.body()}")
-                Log.d(TAG, "getSong: ${response.body()!!.channel!!.itemList.toString()}")
-                mySong.value = response.body()!!.channel!!.itemList
-            }
-            else{
-                Log.d(TAG, "getSong: ${response.code()}")
+            repository.getSong().let { response ->
+                if(response.isSuccessful){
+                    val list = response.body()!!.channel!!.itemList
+                    if (list != null) {
+                        for(i in list){
+                            i.title = i.title.replace("&nbsp;"," ")
+                            Log.d(TAG, "getSong: ${i.title}")
+                        }
+                    }
+                    mySong.value = list
+                }
+                else{
+                    Log.d(TAG, "getSong: ${response.code()}")
+                }
             }
         }
     }
