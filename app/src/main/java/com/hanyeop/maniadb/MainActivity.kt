@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             lifecycleOwner = this@MainActivity
             activity = this@MainActivity
+            vm = mainViewModel
             recyclerView.adapter = mainAdapter
         }
 

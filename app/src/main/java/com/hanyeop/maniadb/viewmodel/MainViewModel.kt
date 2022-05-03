@@ -1,6 +1,7 @@
 package com.hanyeop.maniadb.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,9 +14,18 @@ class MainViewModel() : ViewModel() {
 
     private val repository = Repository.get()
 
-    val mySong : MutableLiveData<List<Item>> = MutableLiveData()
+    private val _mySong : MutableLiveData<List<Item>> = MutableLiveData()
+    val mySong: LiveData<List<Item>> get() = _mySong
+
+    private var _state : MutableLiveData<Boolean> = MutableLiveData()
+    val state : LiveData<Boolean> get() = _state
+
+    init {
+        _state.value = true
+    }
 
     fun getSong(keyword: String){
+        _state.value = false
         viewModelScope.launch {
             repository.getSong(keyword).let { response ->
                 if(response.isSuccessful){
@@ -25,11 +35,12 @@ class MainViewModel() : ViewModel() {
                             i.title = i.title.replace("&nbsp;"," ")
                         }
                     }
-                    mySong.value = list
+                    _mySong.value = list
                 }
                 else{
                     Log.d(TAG, "getSong: ${response.code()}")
                 }
+                _state.value = true
             }
         }
     }

@@ -12,7 +12,9 @@ data class ManiaDBClientResponse(
 
 @Root(name = "channel", strict = false)
 data class Channel @JvmOverloads constructor(
-    @field:ElementList(inline = true)
+
+    // 결과 없을 경우 고려 (required = false)
+    @field:ElementList(inline = true, required = false)
     var itemList: List<Item>? = null
 )
 
@@ -26,9 +28,6 @@ data class Item @JvmOverloads constructor(
 
     @field:Element(name = "artist")
     var artist: Artist? = null
-
-//    @field:Element(name = "description", required = false)
-//    var description: String = ""
 )
 
 @Root(name = "album", strict = false)
