@@ -17,17 +17,29 @@ data class Channel @JvmOverloads constructor(
 )
 
 @Root(name = "item", strict = false)
-class Item @JvmOverloads constructor(
+data class Item @JvmOverloads constructor(
     @field:Element(name = "title")
     var title: String = "",
 
-    @field:Element(name = "description", required = false)
-    var description: String = ""
+    @field:Element(name = "album")
+    var album: Album? = null,
 
+    @field:Element(name = "artist")
+    var artist: Artist? = null
 
-) {
-    override fun toString(): String {
-        return "$title"
-    }
-}
+//    @field:Element(name = "description", required = false)
+//    var description: String = ""
+)
+
+@Root(name = "album", strict = false)
+data class Album @JvmOverloads constructor(
+    @field:Element(name = "image")
+    var image: String = ""
+)
+
+@Root(name = "artist", strict = false)
+data class Artist @JvmOverloads constructor(
+    @field:Element(name = "name")
+    var name: String = ""
+)
 
