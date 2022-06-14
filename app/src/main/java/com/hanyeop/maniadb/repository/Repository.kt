@@ -2,6 +2,7 @@ package com.hanyeop.maniadb.repository
 
 import android.content.Context
 import com.hanyeop.maniadb.api.RetrofitInstance
+import com.hanyeop.maniadb.model.ManiaAlbumResponse
 import com.hanyeop.maniadb.model.ManiaDBClientResponse
 import retrofit2.Response
 
@@ -9,6 +10,10 @@ class Repository private constructor(context: Context){
 
     suspend fun getSong(keyword: String) : Response<ManiaDBClientResponse>{
         return RetrofitInstance.api.getSong(keyword)
+    }
+
+    suspend fun getAlbum(keyword: String) : Response<ManiaAlbumResponse>{
+        return RetrofitInstance.api.getAlbum(keyword)
     }
 
     // 싱글톤

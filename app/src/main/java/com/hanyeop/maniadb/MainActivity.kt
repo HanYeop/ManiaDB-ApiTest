@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
             recyclerView.adapter = mainAdapter
         }
 
+        mainViewModel.getAlbum("Remapping The Human Soul")
+
         initObserver()
     }
 

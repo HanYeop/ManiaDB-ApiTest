@@ -45,4 +45,22 @@ class MainViewModel() : ViewModel() {
             }
         }
     }
+
+    fun getAlbum(keyword: String){
+        viewModelScope.launch {
+            repository.getAlbum(keyword).let { response ->
+                if(response.isSuccessful){
+                    var list = response.body()!!.channel!!.itemList
+                    if (list != null) {
+                        // 결과값 &nbsp; 제거
+                        for(i in list){
+                            i.album!!.trackList = i.album!!.trackList.replace("&nbsp;"," ").replace("/", "\n")
+                                .replace("[Disc 1]","").replace("[Disc 2]","")
+                        }
+                    }
+                    Log.d(TAG, "getAlbum: $list")
+                }
+            }
+        }
+    }
 }
